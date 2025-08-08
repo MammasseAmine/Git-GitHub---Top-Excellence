@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maîtrisez Git & GitHub - TOP EXCELLENCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<style>
+/* --- VARIABLES & RESET --- */
+:root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #161B22;
+    --bg-tertiary: #21262D;
+    --text-primary: #F0F6FC;
+    --text-secondary: #8B949E;
+    --accent-green: #238636;
+    --accent-blue: #388BFD;
+    --accent-orange: #F85149;
+    --accent-purple: #A5A5FF;
+    --accent-yellow: #F7E018;
+    --git-orange: #F1502F;
+    --github-purple: #6F42C1;
+    --font-primary: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --glass-bg: rgba(33, 38, 45, 0.6);
+    --glass-border: rgba(240, 246, 252, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- Barre de Navigation --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+.main-header.scrolled {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.nav-logo img {
+    height: 80px;
+    width: auto;
+    display: block;
+        background-color: white;
+        border-radius: 20px;
+}
+.nav-links { display: flex; gap: 30px; align-items: center; }
+.nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s ease; }
+.nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background-color: var(--accent-green); transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1); }
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* --- Animations --- */
+.fade-in-up { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1); }
+.fade-in-up.animate { opacity: 1; transform: translateY(0); }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+@keyframes code-glow { 0%, 100% { box-shadow: 0 0 20px rgba(56, 139, 253, 0.3); } 50% { box-shadow: 0 0 40px rgba(56, 139, 253, 0.5); } }
+@keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* --- HERO SECTION --- */
+.hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; position: relative;
+    padding: 100px 5% 0;
+    background: radial-gradient(at 10% 20%, var(--bg-secondary) 0px, var(--bg-primary) 50%), radial-gradient(at 90% 80%, var(--bg-tertiary) 0px, var(--bg-primary) 50%);
+    overflow: hidden;
+}
+.hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(35, 134, 54, 0.15), rgba(111, 66, 193, 0.15), rgba(241, 80, 47, 0.15), rgba(56, 139, 253, 0.15));
+    background-size: 400% 400%; animation: animated-gradient 15s ease infinite; z-index: 0;
+}
+.logo-container {
+    position: relative; z-index: 2; margin-bottom: 40px;
+    animation: float 6s ease-in-out infinite;
+    display: flex; align-items: center; justify-content: center; gap: 20px;
+    
+}
+.git-logo {
+    width: 120px; height: 120px;
+    background: linear-gradient(135deg, var(--git-orange), #FF6B35);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 3rem; font-weight: 700; color: white;
+    box-shadow: 0 20px 60px rgba(241, 80, 47, 0.3);
+    position: relative; overflow: hidden;
+
+}
+.git-logo::before {
+    content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, var(--git-orange), var(--github-purple), var(--accent-green));
+    border-radius: 50%; z-index: -1;
+}
+.logo-separator { font-size: 4rem; font-weight: 300; color: var(--text-secondary); line-height: 1; }
+.logo-icon {
+    width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;
+    border-radius: 30px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.github-logo { background: linear-gradient(135deg, #444, #222); }
+.github-logo svg { width: 65%; height: 65%; fill: white; }
+.hero-content { max-width: 1000px; text-align: center; position: relative; z-index: 2; }
+.hero-title { font-size: 4.5rem; font-weight: 800; margin-bottom: 24px; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-purple) 50%, var(--accent-green) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; }
+.hero-subtitle { font-size: 1.4rem; font-weight: 300; color: var(--text-secondary); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; }
+.cta-primary { display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem; transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1); position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(35, 134, 54, 0.3); }
+.cta-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.6s; }
+.cta-primary:hover::before { left: 100%; }
+.cta-primary:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 25px 50px rgba(56, 139, 253, 0.4); }
+
+/* --- Sections --- */
+section { padding: 120px 5%; position: relative; }
+.container { max-width: 1200px; margin: 0 auto; }
+h2 { font-size: 3.5rem; font-weight: 700; text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.section-subtitle { font-size: 1.2rem; color: var(--text-secondary); text-align: center; max-width: 800px; margin: 0 auto 80px; }
+#features { background: var(--bg-secondary); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+.feature-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1); position: relative; overflow: hidden; }
+.feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1); }
+.feature-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); border-color: var(--accent-green); }
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-icon { width: 60px; height: 60px; margin-bottom: 25px; color: var(--accent-green); transition: all 0.4s ease; }
+.feature-card:hover .feature-icon { color: var(--accent-blue); transform: scale(1.1) rotate(-5deg); }
+.feature-card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: var(--text-primary); }
+.feature-card p { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; }
+#pratique { background: var(--bg-tertiary); }
+.code-preview { background: var(--bg-primary); border-radius: 15px; padding: 30px; margin: 40px auto; max-width: 800px; position: relative; border: 1px solid var(--glass-border); animation: code-glow 4s ease-in-out infinite alternate; }
+.code-header { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border); position: relative; }
+.code-dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.red { background: var(--accent-orange); } .dot.yellow { background: var(--accent-yellow); } .dot.green { background: var(--accent-green); }
+.code-title { margin-left: 15px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); }
+.code-content { font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); }
+.copy-code-btn { position: absolute; top: 8px; right: 15px; background: var(--bg-tertiary); border: 1px solid var(--glass-border); color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: var(--font-primary); font-size: 0.8rem; transition: all 0.3s ease; }
+.copy-code-btn:hover { background: var(--accent-green); color: white; border-color: var(--accent-green); }
+.copy-code-btn.copied { background: var(--accent-green); color: white; }
+
+/* NOUVELLE SECTION D'INSCRIPTION */
+#inscription { background: var(--bg-primary); }
+.inscription-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    transition: all 0.4s ease;
+}
+.inscription-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.card-intro {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.info-box {
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--git-orange);
+    border-radius: 10px;
+    padding: 20px 25px;
+    text-align: left;
+    width: 100%;
+}
+.info-box p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+.info-box p:not(:last-child) {
+    margin-bottom: 10px;
+}
+.highlight-label {
+    color: var(--git-orange);
+    font-weight: 600;
+}
+.inscription-card .cta-primary {
+    margin-top: 10px;
+}
+.card-confirmation {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+/* --- FOOTER --- */
+footer { background-color: var(--bg-primary); padding: 80px 5% 40px; border-top: 1px solid var(--glass-border); color: var(--text-secondary); text-align: center; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.footer-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px 40px; margin-bottom: 10px; }
+.footer-contact a { color: var(--text-secondary); text-decoration: none; font-size: 1rem; font-weight: 500; transition: color 0.3s ease; display: flex; align-items: center; gap: 8px; }
+.footer-contact a:hover { color: var(--accent-green); }
+.footer-separator { width: 80px; height: 2px; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); border-radius: 2px; }
+.footer-copyright { font-size: 0.9rem; max-width: 600px; line-height: 1.5; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) { .nav-links { display: none; } }
+@media (max-width: 768px) {
+    .hero-title { font-size: 3rem; }
+    h2 { font-size: 2.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .footer-contact { flex-direction: column; gap: 15px; }
+    .logo-container { gap: 15px; }
+    .git-logo, .logo-icon { width: 100px; height: 100px; }
+    .git-logo { font-size: 2.5rem; }
+    .logo-separator { font-size: 3rem; }
+    .inscription-card { padding: 30px 20px; }
+}
+</style>
+
+<body>
+    <header class="main-header">
+        <a href="#" class="nav-logo">
+            <img src="logo.png" alt="TOP EXCELLENCE Logo">
+        </a>
+        <nav class="nav-links">
+            <a href="#features">Programme</a>
+            <a href="#pratique">En Pratique</a>
+            <a href="#inscription">Inscription</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="logo-container fade-in-up">
+            <div class="git-logo">Git</div>
+            <span class="logo-separator">&</span>
+            <div class="logo-icon github-logo">
+                <svg viewBox="0 0 16 16" fill="white"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title fade-in-up">Maîtrisez Git & GitHub<br>comme un Pro</h1>
+            <p class="hero-subtitle fade-in-up">La formation complète pour les développeurs qui veulent transformer leur façon de coder, de la gestion de version locale aux workflows collaboratifs les plus avancés.</p>
+            <a href="#inscription" class="cta-primary fade-in-up">Rejoindre la Formation</a>
+        </div>
+    </section>
+
+    <main>
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="fade-in-up">Un Programme Complet, de Zéro à Héros</h2>
+                <p class="section-subtitle fade-in-up">Explorez en détail les compétences que vous allez acquérir, des commandes locales de Git aux workflows de collaboration sur GitHub.</p>
+                <div class="features-grid">
+                    <div class="feature-card fade-in-up">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg></div>
+                        <h3>Maîtrise des Commandes Essentielles</h3>
+                        <p>Configurez Git et comprenez son cycle de vie. Maîtrisez les commandes fondamentales (`init`, `add`, `commit`, `log`, `status`) pour une gestion de version locale sans faille.</p>
+                    </div>
+                    <div class="feature-card fade-in-up">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 18h-6a4 4 0 0 1-4-4v-5"/><path d="M6 6h6a4 4 0 0 1 4 4v5"/><path d="M14 14l4 4"/><path d="M10 10l-4-4"/></svg></div>
+                        <h3>Stratégies de Branches Avancées</h3>
+                        <p>Naviguez avec aisance entre les branches. Apprenez les stratégies de `merge` et de `rebase`, résolvez les conflits sans crainte et gardez un historique de projet propre et lisible.</p>
+                    </div>
+                    <div class="feature-card fade-in-up">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                        <h3>Synchronisation avec les Dépôts Distants</h3>
+                        <p>Connectez votre travail local au monde. Maîtrisez `clone`, `push`, `pull` et la gestion de plusieurs dépôts `remote` pour synchroniser vos projets sur GitHub.</p>
+                    </div>
+                    <div class="feature-card fade-in-up">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                        <h3>Collaboration Efficace via GitHub</h3>
+                        <p>Devenez un coéquipier indispensable. Créez et gérez des Pull Requests, participez à des revues de code et suivez les tâches avec les Issues en utilisant des workflows professionnels.</p>
+                    </div>
+                    <div class="feature-card fade-in-up">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.82a1 1 0 0 0-1-1.16 1 1 0 0 1-1.82-.36 1 1 0 0 0-1.64-1 1 1 0 0 1-1.42-.82 1 1 0 0 0-1.17-1 1 1 0 0 1-.36-1.82 1 1 0 0 0-1-1.64 1 1 0 0 1-.82-1.42 1 1 0 0 0-1-1.18A10 10 0 0 0 3 12a1 1 0 0 0 1 1h16.18a1 1 0 0 0 .82-1.18Z"/><path d="M18.82 11a1 1 0 0 0-1.17 1 1 1 0 0 1-1.42.82 1 1 0 0 0-1.64 1 1 1 0 0 1-.36 1.82 1 1 0 0 0-1 1.64 1 1 0 0 1 .82 1.42 1 1 0 0 0 1 1.17 1 1 0 0 1 1.82.36 1 1 0 0 0 1.64 1A10 10 0 0 0 21 12a1 1 0 0 0-1-1Z"/></svg></div>
+                        <h3>Maîtrise de l'Historique & Outils Avancés</h3>
+                        <p>Prenez le contrôle total de votre projet. Apprenez à réécrire l'historique proprement (`rebase -i`), à mettre du travail de côté avec `stash` et à récupérer des commits spécifiques avec `cherry-pick`.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <section id="pratique" class="code-section">
+           <div class="container">
+               <h2 class="fade-in-up">Mettez les Mains dans le Code</h2>
+               <p class="section-subtitle fade-in-up">Voici un aperçu des workflows que vous maîtriserez parfaitement.</p>
+               <div class="code-preview fade-in-up">
+                   <div class="code-header">
+                       <div class="code-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                       <div class="code-title">~/dev/mon-projet</div>
+                       <button class="copy-code-btn" aria-label="Copier le code">Copier</button>
+                   </div>
+                   <pre><code class="code-content" id="code-to-copy"><span style="color: var(--text-secondary); font-style: italic;"># Créer une nouvelle branche pour une feature</span>
+<span style="color: var(--accent-blue);">$ git checkout -b</span> <span style="color: var(--accent-yellow);">feature/user-auth</span>
+
+<span style="color: var(--text-secondary); font-style: italic;"># Travailler sur la feature & commiter</span>
+<span style="color: var(--accent-blue);">$ git add .</span>
+<span style="color: var(--accent-blue);">$ git commit -m</span> <span style="color: var(--accent-yellow);">"feat: add user authentication"</span>
+
+<span style="color: var(--text-secondary); font-style: italic;"># Pousser la branche sur GitHub</span>
+<span style="color: var(--accent-blue);">$ git push -u origin</span> <span style="color: var(--accent-yellow);">feature/user-auth</span>
+
+<span style="color: var(--text-secondary); font-style: italic;"># ... (Ouvrir une Pull Request sur GitHub) ...</span>
+
+<span style="color: var(--text-secondary); font-style: italic;"># Après approbation, merger dans main</span>
+<span style="color: var(--accent-blue);">$ git checkout main</span>
+<span style="color: var(--accent-blue);">$ git pull origin main</span>
+<span style="color: var(--accent-blue);">$ git merge --no-ff</span> <span style="color: var(--accent-yellow);">feature/user-auth</span>
+<span style="color: var(--accent-blue);">$ git push origin main</span></code></pre>
+               </div>
+           </div>
+       </section>
+       
+       <section class="inscription-section" id="inscription">
+           <div class="container">
+               <h2 class="fade-in-up">Prêt à Devenir un Pro ?</h2>
+               <p class="section-subtitle fade-in-up">Un seul investissement pour une compétence qui vous servira toute votre carrière.</p>
+               
+               <div class="inscription-card fade-in-up"> 
+                   <p class="card-intro">Remplissez le formulaire pour réserver votre place.</p>
+                   
+                   <div class="info-box">
+                       <p><strong class="highlight-label">Durée :</strong> 15h de formation pratique et projets concrets.</p>
+                       <p><strong class="highlight-label">Tarif :</strong> Contactez-nous par email pour un devis personnalisé.</p> 
+                   </div>
+                   
+                   <a href="https://docs.google.com/forms/d/e/1FAIpQLSd_jIAqHkKOHfvMT2xVAooZ5D8Zpq6nFboRHJAov_aFjfbu5w/viewform?usp=dialog" class="cta-primary" target="_blank" rel="noopener noreferrer">S'inscrire Maintenant</a>
+                   
+                   <p class="card-confirmation">Vous recevrez une confirmation par email après votre inscription.</p>
+               </div>
+           </div>
+       </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-contact">
+                <a href="tel:0770865634"><span>📞</span><span>Contact : 0770 86 56 34</span></a>
+                <a href="mailto:Groupetopexcellence@gmail.com"><span>✉️</span><span>Email : Groupetopexcellence@gmail.com</span></a>
+                <a href="https://www.google.com/maps/search/?api=1&query=r%C3%A9sidence+bois+sacr%C3%A9,+Boulevard+colonel+amirouche,+Beja%C3%AFa,+Algeria" target="_blank" rel="noopener noreferrer"><span>📍</span><span>résidence bois sacré, Bd colonel amirouche, Bejaïa, Algeria</span></a>
+            </div>
+            <div class="footer-separator"></div>
+            <p class="footer-copyright">© 2025 TOP EXCELLENCE - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+            const copyBtn = document.querySelector('.copy-code-btn');
+            const codeToCopy = document.querySelector('#code-to-copy');
+            if(copyBtn && codeToCopy) {
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(codeToCopy.innerText).then(() => {
+                        copyBtn.textContent = 'Copié !';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copier';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
